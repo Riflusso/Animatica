@@ -6,6 +6,7 @@ import io.github.foundationgames.animatica.util.Flags;
 import io.github.foundationgames.animatica.util.exception.PropertyParseException;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.texture.TextureManager;
 import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
@@ -98,7 +99,8 @@ public final class AnimationLoader implements SimpleSynchronousResourceReloadLis
                         var animId = Identifier.of(targetId.getNamespace(), targetId.getPath() + "-anim");
                         this.animationIds.put(targetId, animId);
                         this.animatedTextures.add(tex);
-                        tex.registerTexture(MinecraftClient.getInstance().getTextureManager(), manager, animId, MinecraftClient.getInstance());
+                        TextureManager textureManager = MinecraftClient.getInstance().getTextureManager();
+                        textureManager.registerTexture(animId, tex);
                     });
         }
 
